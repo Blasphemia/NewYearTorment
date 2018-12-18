@@ -22,21 +22,23 @@ namespace NewYearTorment
                 json = reader.ReadToEnd();
             }
 
-            AllProducts allProducts = JsonConvert.DeserializeObject<AllProducts>(json);
+            AllProducts allGifts = JsonConvert.DeserializeObject<AllProducts>(json);
+            
             Console.WriteLine("All gifts: \n");
-            foreach (var gift in allProducts.Products)
+            foreach (var gift in allGifts.Products)
             {
                 gift.PrintGifts();
+                
             }
 
             ForReadability();
-            allProducts.InexpensiveGift();
-            allProducts.ExpensiveGift();
-            allProducts.GiftsFor50Rub();
-            allProducts.GiftsFor80Rub();
-            allProducts.TotalPrice();
-            allProducts.CostUpTo40rub();
-            allProducts.PriceOfUpTo25rub();
+            allGifts.InexpensiveGift();
+            allGifts.ExpensiveGift();
+            allGifts.GiftsFor50Rub();
+            allGifts.GiftsFor80Rub();
+            allGifts.TotalPrice();
+            allGifts.CostUpTo40rub();
+            allGifts.PriceOfUpTo25rub();
         }
 
         public void ForReadability()
@@ -47,7 +49,7 @@ namespace NewYearTorment
 
         public void InexpensiveGift()
         {
-            Console.WriteLine("Inexpensive gift:");
+            Console.WriteLine("Inexpensive gift:\n");
             var inexpensiveGift = Products.OrderBy(x => x.Prices.Price_min.Amount).Take(1);
 
             foreach (var gift in inexpensiveGift)
@@ -59,7 +61,7 @@ namespace NewYearTorment
         }
         public void ExpensiveGift()
         {
-            Console.WriteLine("Expensive gift:");
+            Console.WriteLine("Expensive gift:\n");
             var mostExpensive = Products.OrderBy(x => x.Prices.Price_min.Amount).Last();
 
             mostExpensive.PrintGifts();
@@ -68,7 +70,7 @@ namespace NewYearTorment
 
         public void GiftsFor50Rub()
         {
-            Console.WriteLine("Inexpensive gifts for 50 rubles:");
+            Console.WriteLine("Inexpensive gifts for 50 rubles:\n");
             double sum = 0;
             var giftsFor50Rub = Products.OrderBy(x => x.Prices.Price_min.Amount).TakeWhile(x => (sum += x.Prices.Price_min.Amount) <= 50);
             foreach (var gift in giftsFor50Rub)
@@ -80,15 +82,16 @@ namespace NewYearTorment
         }
         public void GiftsFor80Rub()
         {
-            Console.WriteLine("Random gifts for 80 rub:");
-            double sum = 0; 
+            Console.WriteLine("Random gifts for 80 rub:\n");
+            double sum = 0;
             var sortGifts = Products.OrderBy(n => Guid.NewGuid());
+
             var giftsFor80Rub = sortGifts.TakeWhile(x => (sum += x.Prices.Price_min.Amount) <= 80);
-        
+
             foreach (var gift in giftsFor80Rub)
             {
                 gift.PrintGifts();
-               
+                
             }
 
             ForReadability();

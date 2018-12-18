@@ -11,6 +11,7 @@ namespace NewYearTorment
         public string Name_prefix { get; set; }
         public Price Prices { get; set; }
         
+        
 
         public void PrintGifts()
 
